@@ -61,8 +61,10 @@ func NewAwsConfig(
 	secretKey string,
 	regionName string,
 	endpoint string,
+	defaultCredentials bool,
 ) *aws.Config {
 	var creds *credentials.Credentials
+	var awsConfig *aws.Config
 
 	if accessKey == "" && secretKey == "" {
 		creds = credentials.AnonymousCredentials
@@ -74,11 +76,14 @@ func NewAwsConfig(
 		regionName = "us-east-1"
 	}
 
-	awsConfig := &aws.Config{
+	awsConfig = &aws.Config{
 		Region:           aws.String(regionName),
-		Credentials:      creds,
 		S3ForcePathStyle: aws.Bool(true),
 		MaxRetries:       aws.Int(maxRetries),
+	}
+
+	if !(defaultCredentials) {
+		awsConfig = awsConfig.WithCredentials(creds)
 	}
 
 	if len(endpoint) != 0 {
