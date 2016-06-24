@@ -25,6 +25,8 @@ version numbers.
 
 * `endpoint`: *Optional.* Custom endpoint for using S3 compatible provider.
 
+* `default_credentials`: *Optional. Default `false`.* This option only matters if neither `access_key_id` nor `secret_access_key` are provided. If set to `true`, then the resource uses the default credentials chain. Otherwise, it uses anonymous credentials. 
+
 ### File Names
 
 One of the following two options must be specified:
